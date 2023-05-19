@@ -1,9 +1,12 @@
 package com.factufacil.api.servicios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.factufacil.api.entidades.Recibo;
 import com.factufacil.api.interfaces.Operaciones;
@@ -23,26 +26,29 @@ public class ReciboServicio implements Operaciones<Recibo> {
 
 	@Override
 	public List<Recibo> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		return ReciRepo.findAll();
 	}
 
 	@Override
 	public boolean eliminar(Long id) {
-		// TODO Auto-generated method stub
-		return false;
+		ReciRepo.deleteById(id);
+		return !ReciRepo.existsById(id);
 	}
 
 	@Override
 	public boolean actualizar(Recibo objeto) {
-		// TODO Auto-generated method stub
-		return false;
+		Optional<Recibo> objetoVerificado = ReciRepo.findById(objeto.getIdRecibo());
+		if (!objetoVerificado.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No existe para actualizar");
+		} else {
+			ReciRepo.save(objeto);
+			return true;
+		}
 	}
 
 	@Override
 	public Recibo obtenerUno(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return ReciRepo.obtenerUno(id);
 	}
 
 }

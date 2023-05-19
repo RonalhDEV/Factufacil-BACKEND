@@ -1,9 +1,12 @@
 package com.factufacil.api.servicios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.factufacil.api.entidades.Contacto;
 import com.factufacil.api.interfaces.Operaciones;
@@ -14,8 +17,7 @@ public class ContactoServicio implements Operaciones<Contacto> {
 
 	@Autowired
 	private ContactoRepositorio ContRepo;
-	
-	
+
 	@Override
 	public boolean agregar(Contacto objeto) {
 		Contacto objTemporal = ContRepo.save(objeto);
@@ -24,26 +26,29 @@ public class ContactoServicio implements Operaciones<Contacto> {
 
 	@Override
 	public List<Contacto> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		return ContRepo.findAll();
 	}
 
 	@Override
 	public boolean eliminar(Long id) {
-		// TODO Auto-generated method stub
-		return false;
+		ContRepo.deleteById(id);
+		return !ContRepo.existsById(id);
 	}
 
 	@Override
 	public boolean actualizar(Contacto objeto) {
-		// TODO Auto-generated method stub
-		return false;
+		Optional<Contacto> objetoVerificado = ContRepo.findById(objeto.getIdContacto());
+		if (!objetoVerificado.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No existe para actualizar");
+		} else {
+			ContRepo.save(objeto);
+			return true;
+		}
 	}
 
 	@Override
 	public Contacto obtenerUno(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return ContRepo.obtenerUno(id);
 	}
 
 }

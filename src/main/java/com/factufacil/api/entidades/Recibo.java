@@ -21,7 +21,7 @@ public class Recibo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idRecibo", nullable = false)
+	@Column(name = "idRecibo")
 	private Long idRecibo;
 
 	@ManyToOne(fetch = FetchType.EAGER)

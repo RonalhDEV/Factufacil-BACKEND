@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "contacto")
@@ -18,7 +20,7 @@ public class Contacto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idContacto", nullable = false)
+	@Column(name = "idContacto")
 	private Long idContacto;
 
 	@Column(name = "correoResidente", nullable = false, length = 100)
@@ -26,6 +28,10 @@ public class Contacto implements Serializable {
 
 	@Column(name = "telefonoResidente", nullable = false, length = 20)
 	private Long telefonoResidente;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idResidente", unique = true, referencedColumnName = "idResidente", nullable = true, updatable = true)
+	private Residente idResidente;
 
 	public Contacto() {
 	}
@@ -52,6 +58,14 @@ public class Contacto implements Serializable {
 
 	public void setTelefonoResidente(Long telefonoResidente) {
 		this.telefonoResidente = telefonoResidente;
+	}
+
+	public Residente getIdResidente() {
+		return idResidente;
+	}
+
+	public void setIdResidente(Residente idResidente) {
+		this.idResidente = idResidente;
 	}
 
 }

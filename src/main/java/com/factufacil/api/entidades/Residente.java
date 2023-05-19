@@ -3,12 +3,9 @@ package com.factufacil.api.entidades;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -20,7 +17,7 @@ public class Residente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idResidente", nullable = false)
+	@Column(name = "idResidente")
 	private Long idResidente;
 
 	@Column(name = "nombreResidente", nullable = false, length = 100)
@@ -38,9 +35,6 @@ public class Residente implements Serializable {
 	@Column(name = "torreResidente", nullable = false, length = 10)
 	private Long torreResidente;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idContacto", referencedColumnName = "idContacto", nullable = false, updatable = true)
-	private Contacto idContacto;
 
 	public Residente() {
 	}
@@ -91,14 +85,6 @@ public class Residente implements Serializable {
 
 	public void setTorreResidente(Long torreResidente) {
 		this.torreResidente = torreResidente;
-	}
-
-	public Contacto getIdContacto() {
-		return idContacto;
-	}
-
-	public void setIdContacto(Contacto idContacto) {
-		this.idContacto = idContacto;
 	}
 
 }

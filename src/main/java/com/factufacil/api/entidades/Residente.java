@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "residente")
 public class Residente implements Serializable {
@@ -35,8 +34,11 @@ public class Residente implements Serializable {
 	@Column(name = "torreResidente", nullable = false, length = 10)
 	private Long torreResidente;
 
-
 	public Residente() {
+	}
+
+	public Residente(Long idResidente) {
+		this.idResidente = idResidente;
 	}
 
 	public Long getIdResidente() {
@@ -86,5 +88,4 @@ public class Residente implements Serializable {
 	public void setTorreResidente(Long torreResidente) {
 		this.torreResidente = torreResidente;
 	}
-
 }

@@ -40,8 +40,6 @@ public class Recibo implements Serializable {
 	@Column(name = "estadoDeRecibo", nullable = false, length = 30)
 	private String estadoDeRecibo;
 
-	@Column(name = "numeroDeRecibo", nullable = false, length = 10)
-	private Long numeroDeRecibo;
 
 	public Recibo() {
 	}
@@ -92,14 +90,6 @@ public class Recibo implements Serializable {
 
 	public void setEstadoDeRecibo(String estadoDeRecibo) {
 		this.estadoDeRecibo = estadoDeRecibo;
-	}
-
-	public Long getNumeroDeRecibo() {
-		return numeroDeRecibo;
-	}
-
-	public void setNumeroDeRecibo(Long numeroDeRecibo) {
-		this.numeroDeRecibo = numeroDeRecibo;
 	}
 
 }
